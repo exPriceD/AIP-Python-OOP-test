@@ -1,9 +1,9 @@
-def counter(function):
+def counter(func):
     def wrapper(*args, **kwargs):
         wrapper.count = 0
         for i in range(3):
             print(f"Iter #{wrapper.count + 1}")
-            function(*args, **kwargs)
+            func(*args, **kwargs)
             wrapper.count += 1
             
     return wrapper
@@ -12,13 +12,27 @@ def counter(function):
 def square(*args, **kwargs):
     summa = 0
     for value in args:
-        summa += value ** 2
+        try:
+            summa += value ** 2
+        except:
+            try:
+                value = int(value)
+                summa += value ** 2
+            except TypeError:
+                exit
+                
     for key, value in kwargs.items():
-        summa += value ** 2
+        try:
+            summa += value ** 2
+        except:
+            try:
+                value = int(value)
+                summa += value ** 2
+            except TypeError:
+                exit
         
     return print(summa)
 
 
-square(1,2,3,messi = 5)
+square(1,1,"2", messi = "two")
 
-print(square.count)
